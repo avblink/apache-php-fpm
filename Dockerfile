@@ -1,18 +1,11 @@
 FROM ubuntu:14.04
-MAINTAINER Smruti Ranjan Tripathy <smrutirtripathy@gmail.com>
+MAINTAINER Alexander Benjamin <abenjamin@avblink.com>
 
 # Setting frontend Noninteractive
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Avoid ERROR: invoke-rc.d: policy-rc.d denied execution of start.
 RUN echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-
-# Edit sources.list to add to install libapache2-mod-fastcgi
-# Adding
-#deb http://archive.ubuntu.com/ubuntu trusty multiverse
-#deb http://archive.ubuntu.com/ubuntu trusty-updates multiverse
-#deb http://security.ubuntu.com/ubuntu trusty-security multiverse
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty multiverse \ndeb http://archive.ubuntu.com/ubuntu trusty-updates multiverse \ndeb http://security.ubuntu.com/ubuntu trusty-security multiverse" >> /etc/apt/sources.list
 
 # Install apache,vim,supervisor,mysql-client,php-fpm and composer
 RUN apt-get update ; \
